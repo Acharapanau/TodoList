@@ -1,4 +1,6 @@
 import React from "react";
+import {Simulate} from "react-dom/test-utils";
+import click = Simulate.click;
 
 
 export type TaskType = {
@@ -10,6 +12,7 @@ export type TaskType = {
 type PropsType = {
     title: string
     tasks: Array<TaskType>
+    removeTask: Function
 }
 
 export function TodoList(props: PropsType) {
@@ -26,6 +29,10 @@ export function TodoList(props: PropsType) {
                     props.tasks.map((t) => {
                         return <li><input type="checkbox" checked={t.isDone}/>
                             <span>{t.title}</span>
+                            <button onClick={() => {
+                                props.removeTask(t.id)
+                            }}>x
+                            </button>
                         </li>
                     })
                 }
